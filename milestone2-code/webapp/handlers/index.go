@@ -6,9 +6,9 @@ import (
 )
 
 func Index(w http.ResponseWriter, req *http.Request) {
-	if req.URL.Path != "/" {
-		http.NotFound(w, req)
-		return
+	p, err := LoadPage("index.html")
+	if err != nil {
+		fmt.Fprintf(w, "invalid file")
 	}
-	fmt.Fprintf(w, "Static page Index")
+	fmt.Fprint(w, string(p.Body))
 }
